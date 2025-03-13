@@ -42,8 +42,6 @@ function showDestructionEffect(context) {
         );
 
         panel.webview.html = getWebviewContent(panel.webview, context.extensionPath, text);
-        
-        vscode.window.showInformationMessage('Usa 1 para disparos, 2 para martillo y 3 para lanzallamas. Haz clic o mantén presionado el botón del ratón para usar el efecto seleccionado.');
     }
 }
 
