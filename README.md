@@ -2,7 +2,9 @@
 
 ## _"Because sometimes, code just needs to be DESTROYED!"_
 
-![VS Code Destroyer Banner](src/images/banner.webp)
+<p align="center">
+  <img src="src/images/banner.webp" alt="VS Code Destroyer Banner" width="500" />
+</p>
 
 Are you tired of staring at that frustrating code that just won't work? Do you wish there was a more satisfying way to express your programming rage than just hitting backspace? **LOOK NO FURTHER!**
 
