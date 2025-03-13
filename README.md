@@ -44,6 +44,29 @@ Press F5 and select VsCode Extension Development
 This will open a new window where you can test it by running cmd/control + shift + P and select Destroy Editor!
 ```
 
+## Usage
+
+1. **Launch the Destroyer**: 
+   - Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux) to open the command palette
+   - Type `Destroy Editor!` and select it
+
+2. **Select Your Weapon**:
+   - Click on one of the weapon icons in the toolbar that appears
+   - Or use number keys 1-4 to quickly switch between weapons:
+     - `1`: Bullet Mode
+     - `2`: Auto Gun Mode
+     - `3`: Hammer Mode
+     - `4`: Flamethrower Mode
+     - `5`: Bomb mode 
+
+3. **Unleash Destruction**:
+   - Click anywhere in your code to apply the selected destruction effect
+   - Hold and drag for continuous destruction with certain weapons
+
+5. **Save Your Masterpiece**:
+   - Use the "Save Destruction" button to capture a screenshot of your destroyed code
+   - Share with colleagues for maximum satisfaction!
+
 ## Adding Your Own Destruction Effects
 
 ### "BUT HOW CAN I CREATE MY OWN DESTRUCTION METHODS?" We hear you ask!
@@ -193,6 +216,8 @@ _But seriously, this is just for fun. Please don't actually use this for product
 
 ## License
 
-MIT - Feel free to destroy your code in any way you see fit!
+GNU General Public License v3.0 - This software is free as in freedom. You can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation.
+
+See the [LICENSE](LICENSE) file for full details.
 
 _VS Code Destroyer™ is not responsible for any lost work, missed deadlines, or emotional attachment to destroyed code. Not valid in regions where code destruction is prohibited. Some destruction may require modern browser support._

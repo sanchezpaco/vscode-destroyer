@@ -18,7 +18,6 @@ class AutomaticGunEffect extends BulletEffect {
         this.currentSoundIndex = 0;
         this.spreadFactor = 15;
         
-        // Pre-create simulated event object for reuse
         this.simulatedEvent = { clientX: 0, clientY: 0 };
     }
     
@@ -42,11 +41,9 @@ class AutomaticGunEffect extends BulletEffect {
     getSound() {
         if (this.soundPool.length === 0) return null;
         
-        // Use a round-robin approach for sounds
         const sound = this.soundPool[this.currentSoundIndex];
         this.currentSoundIndex = (this.currentSoundIndex + 1) % this.soundPool.length;
         
-        // Reset to beginning of sound
         sound.currentTime = 0;
         return sound;
     }
@@ -70,13 +67,11 @@ class AutomaticGunEffect extends BulletEffect {
                 return;
             }
             
-            // Update simulated event with current position
             this.simulatedEvent.clientX = this.mousePosition.x;
             this.simulatedEvent.clientY = this.mousePosition.y;
             
             this.createBulletEffects(this.simulatedEvent);
             
-            // Apply spread to next position
             this.mousePosition.x += (Math.random() - 0.5) * this.spreadFactor;
             this.mousePosition.y += (Math.random() - 0.5) * this.spreadFactor;
             
@@ -93,7 +88,6 @@ class AutomaticGunEffect extends BulletEffect {
         this.createBulletHole(e.clientX, e.clientY);
         this.createSplash(e.clientX, e.clientY);
         
-        // Only create cracks occasionally to improve performance
         if (this.hitCount % 3 === 0) {
             this.createCracks(e.clientX, e.clientY);
         }
@@ -140,7 +134,6 @@ class AutomaticGunEffect extends BulletEffect {
     cleanup() {
         this.disable();
         
-        // Clean up sound pool
         this.soundPool.forEach(sound => {
             if (sound && sound.parentNode) {
                 sound.parentNode.removeChild(sound);
