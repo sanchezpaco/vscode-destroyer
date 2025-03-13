@@ -21,10 +21,18 @@ class BulletEffect extends EffectBase {
     initialize() {
     }
 
-    playRandomGunshot() {
+    playGunshotSound() {
         const sounds = [this.gunshot1];
         const randomIndex = Math.floor(Math.random() * sounds.length);
-        this.playSound(sounds[randomIndex], randomIndex);
+        const selectedSound = sounds[randomIndex];
+        
+        const soundClone = selectedSound.cloneNode(true);
+        soundClone.volume = selectedSound.volume;
+        soundClone.play();
+        
+        soundClone.onended = () => {
+            soundClone.remove();
+        };
     }
 
     screenShake() {
@@ -47,7 +55,7 @@ class BulletEffect extends EffectBase {
         hole.style.left = x + 'px';
         hole.style.top = y + 'px';
         
-        const scale = 0.8 + Math.random() * 0.4; // entre 0.8 y 1.2
+        const scale = 0.8 + Math.random() * 0.4;
         hole.style.transform = `translate(-50%, -50%) scale(${scale})`;
         
         hole.style.transform += ` rotate(${Math.random() * 360}deg)`;
@@ -103,9 +111,9 @@ class BulletEffect extends EffectBase {
             
             if (Math.random() > 0.5) {
                 const branchLength = Math.random() * 40 + 20;
-                const branchAngle = Math.random() * 30 - 15; // Desviación entre -15 y 15 grados
+                const branchAngle = Math.random() * 30 - 15; 
                 
-                const branchStart = Math.random() * 0.7 + 0.2; // Entre 20% y 90% de la línea principal
+                const branchStart = Math.random() * 0.7 + 0.2;
                 const x = Math.cos(i * Math.PI * 2 / numCracks) * (70 * branchStart);
                 const y = Math.sin(i * Math.PI * 2 / numCracks) * (70 * branchStart);
                 
@@ -151,7 +159,7 @@ class BulletEffect extends EffectBase {
     handleClick(e) {
         if (!this.isActive) return;
         
-        this.playRandomGunshot();
+        this.playGunshotSound();
         this.screenShake();
         this.createBulletHole(e.clientX, e.clientY);
         this.createSplash(e.clientX, e.clientY);

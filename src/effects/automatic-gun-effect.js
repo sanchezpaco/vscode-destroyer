@@ -13,6 +13,33 @@ class AutomaticGunEffect extends BulletEffect {
         this.boundMouseDownHandler = this.startFiring.bind(this);
         this.boundMouseUpHandler = this.stopFiring.bind(this);
         this.boundMouseLeaveHandler = this.stopFiring.bind(this);
+        
+        this.soundPool = [];
+        this.initializeSoundPool();
+    }
+    
+    initializeSoundPool() {
+        const poolSize = 10;
+        for (let i = 0; i < poolSize; i++) {
+            if (this.gunshot1) {
+                const sound = this.gunshot1.cloneNode(true);
+                sound.volume = 0.3;
+                this.soundPool.push(sound);
+            }
+        }
+    }
+    
+    getSound() {
+        for (let sound of this.soundPool) {
+            if (sound.paused || sound.ended) {
+                return sound;
+            }
+        }
+        
+        const newSound = this.gunshot1.cloneNode(true);
+        newSound.volume = 0.3;
+        this.soundPool.push(newSound);
+        return newSound;
     }
 
     handleMouseMove(e) {
@@ -42,13 +69,28 @@ class AutomaticGunEffect extends BulletEffect {
                 clientY: this.mousePosition.y
             };
             
-            super.handleClick(simulatedEvent);
+            this.createBulletEffects(simulatedEvent);
             
             const spreadFactor = 15;
             this.mousePosition.x += (Math.random() - 0.5) * spreadFactor;
             this.mousePosition.y += (Math.random() - 0.5) * spreadFactor;
             
         }, this.fireRate);
+    }
+    
+    createBulletEffects(e) {
+        if (!this.isActive) return;
+        
+        const sound = this.getSound();
+        sound.currentTime = 0;
+        sound.play();
+        
+        this.screenShake();
+        this.createBulletHole(e.clientX, e.clientY);
+        this.createSplash(e.clientX, e.clientY);
+        this.createCracks(e.clientX, e.clientY);
+        
+        this.hitCount++;
     }
 
     stopFiring() {
@@ -64,7 +106,7 @@ class AutomaticGunEffect extends BulletEffect {
             return;
         }
         
-        super.handleClick(e);
+        this.createBulletEffects(e);
     }
 
     disable() {

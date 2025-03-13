@@ -10,9 +10,8 @@ class FlamethrowerEffect extends EffectBase {
         this.flameInterval = null;
         this.isEnabled = false;
         
-        this.flameSound = document.getElementById('flame-sound');
-        this.burnSound = document.getElementById('burn-sound');
-        this.explosionSound = document.getElementById('explosion');
+        this.flameStartSound = document.getElementById('flame-start');
+        this.flameSustainSound = document.getElementById('flame-sustain');
         
         this.boundMouseMove = this.handleMouseMove.bind(this);
         this.boundMouseDown = this.handleMouseDown.bind(this);
@@ -21,8 +20,10 @@ class FlamethrowerEffect extends EffectBase {
         document.addEventListener('mouseup', this.boundMouseUp);
         
         this.burnIntensity = 0.4;
-        this.maxScorchMarks = 200;
+        this.maxScorchMarks = 1000;
         this.scorchMarkSize = { min: 20, max: 60 };
+        
+        this.transitionTimer = null;
     }
     
     handleMouseMove(e) {
@@ -65,10 +66,31 @@ class FlamethrowerEffect extends EffectBase {
     startFlame(e) {
         if (!this.isEnabled) return;
         
-        this.playSound(this.flameSound, 0);
-        this.flameSound.loop = true;
-        
         this.isFlameActive = true;
+        
+        this.flameStartSound.volume = 0.3;
+        this.playSound(this.flameStartSound);
+        
+        this.flameSustainSound.loop = true;
+        
+        const startDuration = this.flameStartSound.duration * 1000;
+        const transitionPoint = startDuration - 300;
+        
+        this.transitionTimer = setTimeout(() => {
+            if (this.isFlameActive) {
+                this.flameSustainSound.volume = 0;
+                this.playSound(this.flameSustainSound);
+                
+                const fadeIn = setInterval(() => {
+                    if (this.flameSustainSound.volume < 0.28) {
+                        this.flameSustainSound.volume += 0.03;
+                    } else {
+                        this.flameSustainSound.volume = 0.3;
+                        clearInterval(fadeIn);
+                    }
+                }, 30);
+            }
+        }, transitionPoint);
         
         this.flameInterval = setInterval(() => {
             if (this.isFlameActive) {
@@ -88,17 +110,36 @@ class FlamethrowerEffect extends EffectBase {
         this.isFlameActive = false;
         clearInterval(this.flameInterval);
         
-        if (this.flameSound) {
-            const fadeOut = setInterval(() => {
-                if (this.flameSound.volume > 0.1) {
-                    this.flameSound.volume -= 0.1;
+        if (this.transitionTimer) {
+            clearTimeout(this.transitionTimer);
+            this.transitionTimer = null;
+        }
+        
+        // Handle the flame-start sound
+        if (!this.flameStartSound.paused) {
+            const fadeOutStart = setInterval(() => {
+                if (this.flameStartSound.volume > 0.03) {
+                    this.flameStartSound.volume -= 0.05;
                 } else {
-                    this.flameSound.pause();
-                    this.flameSound.currentTime = 0;
-                    this.flameSound.volume = 0.3;
-                    clearInterval(fadeOut);
+                    this.flameStartSound.pause();
+                    this.flameStartSound.currentTime = 0;
+                    clearInterval(fadeOutStart);
                 }
-            }, 50);
+            }, 30);
+        }
+        
+        // Handle the flame-sustain sound
+        if (!this.flameSustainSound.paused) {
+            const fadeOutSustain = setInterval(() => {
+                if (this.flameSustainSound.volume > 0.03) {
+                    this.flameSustainSound.volume -= 0.03;
+                } else {
+                    this.flameSustainSound.pause();
+                    this.flameSustainSound.currentTime = 0;
+                    this.flameSustainSound.volume = 0.3;
+                    clearInterval(fadeOutSustain);
+                }
+            }, 30);
         }
     }
 
@@ -138,10 +179,6 @@ class FlamethrowerEffect extends EffectBase {
             for (let i = 0; i < numMarks; i++) {
                 this.createScorchMark(x, y);
             }
-        }
-        
-        if (Math.random() > 0.8) {
-            this.playSound(this.burnSound, 1);
         }
         
         if (Math.random() > 0.7) {

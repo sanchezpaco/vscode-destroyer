@@ -9,8 +9,6 @@ class HammerEffect extends EffectBase {
         this.groundLevel = window.innerHeight - 50;
 
         this.hammerHit = document.getElementById('hammer-hit');
-        this.glassBreak = document.getElementById('glass-break');
-        this.debrisFall = document.getElementById('debris-fall');
         this.explosionSound = document.getElementById('explosion');
         
         this.isActive = false;
@@ -105,9 +103,9 @@ class HammerEffect extends EffectBase {
             
             if (Math.random() > 0.3) {
                 const branchLength = Math.random() * 35 + 15;
-                const branchAngle = Math.random() * 40 - 20; // Mayor ángulo de desviación
+                const branchAngle = Math.random() * 40 - 20;
                 
-                const branchStart = Math.random() * 0.6 + 0.2; // Entre 20% y 80% de la línea principal
+                const branchStart = Math.random() * 0.6 + 0.2;
                 const x = Math.cos(i * Math.PI * 2 / numCracks) * (50 * branchStart);
                 const y = Math.sin(i * Math.PI * 2 / numCracks) * (50 * branchStart);
                 
@@ -231,9 +229,9 @@ class HammerEffect extends EffectBase {
             
             this.editor.appendChild(fragment);
             
-            const fallX = (Math.random() - 0.5) * 300; // Destino X aleatorio
+            const fallX = (Math.random() - 0.5) * 300; 
             const height = fragment.offsetHeight || 20;
-            const targetY = this.groundLevel - height; // Punto base del suelo
+            const targetY = this.groundLevel - height; 
             const rotation = (Math.random() - 0.5) * 720;
             const duration = Math.random() * 1.5 + 1;
             
@@ -262,10 +260,6 @@ class HammerEffect extends EffectBase {
                     oldFragment.style.transition = 'opacity 0.5s';
                     oldFragment.style.opacity = '0';
                     setTimeout(() => oldFragment.remove(), 500);
-                }
-                
-                if (Math.random() > 0.7) {
-                    this.playSound(this.debrisFall, 2);
                 }
                 
                 if (Math.random() > 0.5) {
@@ -306,15 +300,24 @@ class HammerEffect extends EffectBase {
         }
     }
 
+    playHammerSound() {
+        const soundClone = this.hammerHit.cloneNode(true);
+        soundClone.volume = this.hammerHit.volume;
+        soundClone.play();
+        
+        soundClone.onended = () => {
+            soundClone.remove();
+        };
+    }
+
     handleClick(e) {
         if (!this.isActive) return;
         
-        this.playSound(this.hammerHit, 0);
+        this.playHammerSound();
         this.createHammerImpact(e.clientX, e.clientY);
         this.createHammerCrack(e.clientX, e.clientY);
         this.createGlassCracks(e.clientX, e.clientY);
         this.screenShake();
-        this.playSound(this.glassBreak, 1);
         this.createCodeFragments(e.clientX, e.clientY);
         
         this.hitCount++;
