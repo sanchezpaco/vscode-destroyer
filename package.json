@@ -8,6 +8,7 @@
     "type": "git",
     "url": "https://github.com/sanchezpaco/vscode-destroyer"
   },
+  "icon": "./src/images/logo.png",
   "engines": {
     "vscode": "^1.60.0"
   },
