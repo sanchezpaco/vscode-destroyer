@@ -7,7 +7,7 @@ class EffectBase {
         this.isMuted = false; // Add muted state property
     }
 
-    playSound(soundElement, fallbackIndex = 0) {
+    playSound(soundElement) {
         // Check for muted state before playing sound
         if (this.isMuted || window.isSoundMuted) {
             console.log("Sound is muted, skipping audio playback");
@@ -16,14 +16,7 @@ class EffectBase {
         
         if (soundElement) {
             soundElement.volume = 0.3;
-            soundElement.play().catch(e => {
-                console.log("Error reproduciendo sonido local, intentando fallback", e);
-                if (this.fallbackSoundUrls && this.fallbackSoundUrls[fallbackIndex]) {
-                    const fallbackSound = new Audio(this.fallbackSoundUrls[fallbackIndex]);
-                    fallbackSound.volume = 0.3;
-                    fallbackSound.play().catch(err => console.log("No se pudo reproducir sonido", err));
-                }
-            });
+            soundElement.play()            
         }
     }
 

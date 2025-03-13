@@ -42,7 +42,6 @@ Thank you for your interest in contributing to VS Code Destroyer! This is a fun 
 ## Asset Guidelines
 
 - Audio files should be in MP3 format, no larger than 100KB
-- Include fallback audio URLs for when local audio can't be used
 - Images should be in PNG format, optimized for size
 - Cursor images should be no larger than 32x32 pixels
 

@@ -22,5 +22,3 @@ Suggested sounds for hammer effect:
 - Hammer hit: "Sledge Hammer" from SoundBible
 - Glass break: "Glass Breaking" from SoundBible
 - Debris fall: "Dropping" from SoundBible
-
-If these files are not present, the extension will fallback to loading sounds from URLs.

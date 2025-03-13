@@ -61,13 +61,7 @@ class ChainsawEffect extends EffectBase {
     constructor() {
         super();
         
-        // Sound fallbacks if local sounds don't work
-        this.fallbackSoundUrls = [
-            'https://example.com/chainsaw-sound.mp3',
-            'https://example.com/wood-cutting-sound.mp3'
-        ];
-
-        // Reference your audio elements from index.html
+        // Reference your audio elements from view.html
         this.chainsawSound = document.getElementById('chainsaw-sound');
         this.woodCuttingSound = document.getElementById('wood-cutting-sound');
     }

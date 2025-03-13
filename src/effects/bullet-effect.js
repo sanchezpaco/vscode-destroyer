@@ -4,16 +4,7 @@ class BulletEffect extends EffectBase {
     constructor() {
         super();
         
-        this.fallbackSoundUrls = [
-            'https://soundbible.com/mp3/Shotgun_Blast-Jim_Rogers-1914772763.mp3',
-            'https://soundbible.com/mp3/Dry_Fire_Gun-SoundBible.com-2053652037.mp3',
-            'https://soundbible.com/mp3/GunShot-SoundBible.com-1113900305.mp3',
-            'https://soundbible.com/mp3/Bomb_Exploding-Sound_Explorer-68256487.mp3'
-        ];
-
         this.gunshot1 = document.getElementById('gunshot1');
-        this.gunshot2 = document.getElementById('gunshot2');
-        this.gunshot3 = document.getElementById('gunshot3');
         this.explosionSound = document.getElementById('explosion');
         
         this.isActive = false;
@@ -31,7 +22,7 @@ class BulletEffect extends EffectBase {
     }
 
     playRandomGunshot() {
-        const sounds = [this.gunshot1, this.gunshot2, this.gunshot3];
+        const sounds = [this.gunshot1];
         const randomIndex = Math.floor(Math.random() * sounds.length);
         this.playSound(sounds[randomIndex], randomIndex);
     }
@@ -40,7 +31,7 @@ class BulletEffect extends EffectBase {
         this.editor.classList.add('screen-shake');
         setTimeout(() => {
             this.editor.classList.remove('screen-shake');
-        }, 200);
+        }, 50);
     }
 
     createBulletHole(x, y) {

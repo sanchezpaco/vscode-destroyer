@@ -10,12 +10,6 @@ class FlamethrowerEffect extends EffectBase {
         this.flameInterval = null;
         this.isEnabled = false;
         
-        this.fallbackSoundUrls = [
-            'https://soundbible.com/mp3/Fire_Burning-JaBa-810606592.mp3',
-            'https://soundbible.com/mp3/Realistic_Punch-Hancel_Deaton-1140835265.mp3',
-            'https://soundbible.com/mp3/Explosion-SoundBible.com-2019248186.mp3'
-        ];
-
         this.flameSound = document.getElementById('flame-sound');
         this.burnSound = document.getElementById('burn-sound');
         this.explosionSound = document.getElementById('explosion');

@@ -7,12 +7,6 @@ class HammerEffect extends EffectBase {
         this.editorContent = document.querySelector('.editor-content');
         this.fragmentsOnGround = []; 
         this.groundLevel = window.innerHeight - 50;
-        
-        this.fallbackSoundUrls = [
-            'https://soundbible.com/mp3/Sledge%20Hammer-SoundBible.com-69728991.mp3',
-            'https://soundbible.com/mp3/Glass%20Breaking-SoundBible.com-1765179464.mp3',
-            'https://soundbible.com/mp3/Dropping-SoundBible.com-1676405591.mp3'
-        ];
 
         this.hammerHit = document.getElementById('hammer-hit');
         this.glassBreak = document.getElementById('glass-break');
