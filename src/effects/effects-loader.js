@@ -4,9 +4,16 @@ class EffectBase {
         this.maxHits = 1000;
         this.hitCount = 0;
         this.isActive = false;
+        this.isMuted = false; // Add muted state property
     }
 
     playSound(soundElement, fallbackIndex = 0) {
+        // Check for muted state before playing sound
+        if (this.isMuted || window.isSoundMuted) {
+            console.log("Sound is muted, skipping audio playback");
+            return;
+        }
+        
         if (soundElement) {
             soundElement.volume = 0.3;
             soundElement.play().catch(e => {

@@ -66,6 +66,38 @@
         .weapon-name {
             font-size: 14px;
         }
+        
+        /* Mute button styles */
+        .sound-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(30, 30, 30, 0.85);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            z-index: 1000;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+        
+        .sound-control:hover {
+            background: rgba(40, 40, 40, 0.9);
+        }
+        
+        .sound-control.muted {
+            background: rgba(200, 50, 50, 0.5);
+        }
+        
+        .sound-control .sound-icon {
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -84,6 +116,12 @@
         <div class="editor-content">
             ${editorContent}
         </div>
+    </div>
+
+    <!-- Sound control button -->
+    <div id="sound-control" class="sound-control">
+        <span class="sound-icon">🔊</span>
+        <span class="sound-text">Sound On</span>
     </div>
 
     <!-- Enhanced weapons menu -->

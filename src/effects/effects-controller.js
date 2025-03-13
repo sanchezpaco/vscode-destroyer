@@ -4,12 +4,18 @@ import { AutomaticGunEffect } from "./automatic-gun-effect.js";
 import { HammerEffect } from "./hammer-effect.js";
 import { FlamethrowerEffect } from "./flamethrower-effect.js";
 
+// Import the sound controller
+import SoundController from './sound-controller.js';
+
 export function initializeEffects() {
     const bulletEffect = new BulletEffect();
     const automaticGunEffect = new AutomaticGunEffect();
     const hammerEffect = new HammerEffect();
     const flamethrowerEffect = new FlamethrowerEffect();
     
+    // Initialize the sound controller
+    const soundController = new SoundController();
+
     const editor = document.getElementById('editor');
     
     let activeEffect = 'bullet';
