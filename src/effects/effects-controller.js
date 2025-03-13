@@ -3,6 +3,7 @@ import { BulletEffect } from "./bullet-effect.js";
 import { AutomaticGunEffect } from "./automatic-gun-effect.js";
 import { HammerEffect } from "./hammer-effect.js";
 import { FlamethrowerEffect } from "./flamethrower-effect.js";
+import { BombEffect } from "./bomb-effect.js";
 
 // Import the sound controller
 import SoundController from './sound-controller.js';
@@ -12,6 +13,7 @@ export function initializeEffects() {
     const automaticGunEffect = new AutomaticGunEffect();
     const hammerEffect = new HammerEffect();
     const flamethrowerEffect = new FlamethrowerEffect();
+    const bombEffect = new BombEffect();
     
     // Initialize the sound controller
     const soundController = new SoundController();
@@ -48,6 +50,13 @@ export function initializeEffects() {
             icon: '🔥',
             key: '4',
             effect: flamethrowerEffect
+        },
+        'bomb': {
+            id: 'bomb-control',
+            name: 'Bomb',
+            icon: '💣',
+            key: '5',
+            effect: bombEffect
         }
     };
     

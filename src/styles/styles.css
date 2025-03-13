@@ -575,3 +575,155 @@ body {
 .sound-control .sound-icon {
     font-size: 18px;
 }
+
+/* Bomb effect styles */
+.bomb-indicator {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 150;
+    pointer-events: none;
+}
+
+.bomb-countdown {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    animation: countdown 0.3s ease-in-out infinite alternate;
+}
+
+@keyframes countdown {
+    from { transform: scale(1); filter: brightness(1); }
+    to { transform: scale(1.2); filter: brightness(1.5) drop-shadow(0 0 5px red); }
+}
+
+.pulse-animation {
+    animation: pulse 0.3s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+    from { transform: translate(-50%, -50%) scale(1); }
+    to { transform: translate(-50%, -50%) scale(1.2); }
+}
+
+.explosion-particle {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at center,
+        rgba(255, 230, 110, 0.9) 0%,
+        rgba(255, 150, 50, 0.8) 30%, 
+        rgba(255, 70, 20, 0.7) 50%,
+        rgba(150, 20, 0, 0.4) 80%,
+        transparent 100%);
+    box-shadow: 0 0 30px 15px rgba(255, 100, 20, 0.6);
+    z-index: 110;
+    pointer-events: none;
+    animation: explosion 0.8s ease-out forwards;
+    mix-blend-mode: screen;
+}
+
+.explosion-center {
+    background: radial-gradient(circle at center,
+        rgba(255, 255, 180, 1) 0%,
+        rgba(255, 200, 80, 0.9) 20%,
+        rgba(255, 120, 40, 0.8) 40%,
+        rgba(200, 50, 10, 0.6) 70%,
+        transparent 100%);
+    box-shadow: 0 0 50px 25px rgba(255, 150, 50, 0.8);
+    animation: center-explosion 0.8s ease-out forwards;
+}
+
+@keyframes explosion {
+    0% { 
+        opacity: 1; 
+        transform: translate(-50%, -50%) scale(0.1);
+        filter: brightness(1.5);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.8);
+        filter: brightness(1.2);
+    }
+    100% { 
+        opacity: 0; 
+        transform: translate(-50%, -50%) scale(1);
+        filter: brightness(0.8);
+    }
+}
+
+@keyframes center-explosion {
+    0% { 
+        opacity: 1; 
+        transform: translate(-50%, -50%) scale(0.1);
+        filter: brightness(1.8);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.2);
+        filter: brightness(1.5);
+    }
+    100% { 
+        opacity: 0; 
+        transform: translate(-50%, -50%) scale(1.5);
+        filter: brightness(0.9);
+    }
+}
+
+.explosion-debris {
+    position: absolute;
+    background: radial-gradient(circle at center,
+        rgba(255, 220, 150, 1) 0%,
+        rgba(200, 100, 30, 0.9) 60%,
+        rgba(150, 50, 10, 0.8) 100%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 120;
+    pointer-events: none;
+    animation: debris-fly 1s ease-out forwards;
+}
+
+@keyframes debris-fly {
+    0% { 
+        opacity: 1; 
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+    100% { 
+        opacity: 0; 
+        transform: 
+            translate(
+                calc(-50% + var(--fly-x)), 
+                calc(-50% + var(--fly-y))
+            ) 
+            scale(0.3) 
+            rotate(var(--rotation));
+    }
+}
+
+.explosion-crater {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at center,
+        rgba(30, 15, 0, 0.9) 0%,
+        rgba(40, 20, 5, 0.8) 30%,
+        rgba(50, 25, 10, 0.5) 60%,
+        rgba(60, 30, 15, 0) 100%);
+    transform: translate(-50%, -50%);
+    z-index: 105;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    opacity: 0;
+    animation: crater-appear 0.5s ease-out forwards;
+}
+
+@keyframes crater-appear {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+    100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+}
