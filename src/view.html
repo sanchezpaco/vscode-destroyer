@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor Destruction</title>
+    <style>
+        ${styles}
+        /* Enhanced styles for the weapons menu */
+        .weapons-menu {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(30, 30, 30, 0.85);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-width: 180px;
+        }
+        
+        .weapons-menu h3 {
+            margin: 0 0 10px 0;
+            text-align: center;
+            font-size: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 5px;
+        }
+        
+        .weapon-option {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            opacity: 0.7;
+        }
+        
+        .weapon-active {
+            background: rgba(59, 130, 246, 0.3);
+            opacity: 1;
+            box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5);
+        }
+        
+        .weapon-icon {
+            font-size: 22px;
+            margin-right: 10px;
+            width: 28px;
+            text-align: center;
+        }
+        
+        .weapon-key {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            padding: 2px 6px;
+            margin-right: 8px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        
+        .weapon-name {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Audio elements for sound effects -->
+    <audio id="gunshot1" src="${srcPath}/sounds/gunshot1.mp3" preload="auto"></audio>
+    <audio id="gunshot2" src="${srcPath}/sounds/gunshot2.mp3" preload="auto"></audio>
+    <audio id="gunshot3" src="${srcPath}/sounds/gunshot3.mp3" preload="auto"></audio>
+    <audio id="hammer-hit" src="${srcPath}/sounds/hammer-hit.mp3" preload="auto"></audio>
+    <audio id="glass-break" src="${srcPath}/sounds/glass-break.mp3" preload="auto"></audio>
+    <audio id="debris-fall" src="${srcPath}/sounds/debris-fall.mp3" preload="auto"></audio>
+    <audio id="explosion" src="${srcPath}/sounds/explosion.mp3" preload="auto"></audio>
+    <audio id="flame-sound" src="${srcPath}/sounds/flame.mp3" preload="auto"></audio>
+    <audio id="burn-sound" src="${srcPath}/sounds/burn.mp3" preload="auto"></audio>
+
+    <div id="editor" class="editor">
+        <div class="editor-content">
+            ${editorContent}
+        </div>
+    </div>
+
+    <!-- Enhanced weapons menu -->
+    <div id="weapons-menu" class="weapons-menu">
+        <h3>Weapons Arsenal</h3>
+        <div id="bullet-control" class="weapon-option weapon-active">
+            <div class="weapon-icon">🔫</div>
+            <div>
+                <span class="weapon-key">1</span>
+                <span class="weapon-name">Bullet</span>
+            </div>
+        </div>
+        <div id="automatic-gun-control" class="weapon-option">
+            <div class="weapon-icon">🔫</div>
+            <div>
+                <span class="weapon-key">2</span>
+                <span class="weapon-name">Auto Gun</span>
+            </div>
+        </div>
+        <div id="hammer-control" class="weapon-option">
+            <div class="weapon-icon">🔨</div>
+            <div>
+                <span class="weapon-key">3</span>
+                <span class="weapon-name">Hammer</span>
+            </div>
+        </div>
+        <div id="flamethrower-control" class="weapon-option">
+            <div class="weapon-icon">🔥</div>
+            <div>
+                <span class="weapon-key">4</span>
+                <span class="weapon-name">Flamethrower</span>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="${srcPath}/effects/effects-controller.js"></script>
+</body>
+</html>

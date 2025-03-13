@@ -1,0 +1,43 @@
+{
+  "name": "vscode-destroyer",
+  "displayName": "VS Code Destroyer",
+  "description": "Blow off steam by destroying your editor with bullets, hammers, and flamethrowers. A fun break during frustrating coding sessions!",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanchezpaco/vscode-destroyer"
+  },
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vscode-destroyer.destroy",
+        "title": "Destroy Editor!"
+      }
+    ]
+  },
+  "scripts": {
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "20.2.5",
+    "@types/vscode": "^1.60.0",
+    "@vscode/test-electron": "^2.3.8",
+    "eslint": "^8.41.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^5.1.3"
+  },
+  "files": [
+    "src/**"
+  ]
+}
