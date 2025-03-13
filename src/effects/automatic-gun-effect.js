@@ -15,40 +15,46 @@ class AutomaticGunEffect extends BulletEffect {
         this.boundMouseLeaveHandler = this.stopFiring.bind(this);
         
         this.soundPool = [];
+        this.currentSoundIndex = 0;
+        this.spreadFactor = 15;
+        
+        // Pre-create simulated event object for reuse
+        this.simulatedEvent = { clientX: 0, clientY: 0 };
+    }
+    
+    initialize() {
+        super.initialize();
         this.initializeSoundPool();
     }
     
     initializeSoundPool() {
         const poolSize = 10;
+        if (!this.gunshot1) return;
+        
         for (let i = 0; i < poolSize; i++) {
-            if (this.gunshot1) {
-                const sound = this.gunshot1.cloneNode(true);
-                sound.volume = 0.3;
-                this.soundPool.push(sound);
-            }
+            const sound = this.gunshot1.cloneNode(true);
+            sound.volume = 0.3;
+            document.body.appendChild(sound);
+            this.soundPool.push(sound);
         }
     }
     
     getSound() {
-        for (let sound of this.soundPool) {
-            if (sound.paused || sound.ended) {
-                return sound;
-            }
-        }
+        if (this.soundPool.length === 0) return null;
         
-        const newSound = this.gunshot1.cloneNode(true);
-        newSound.volume = 0.3;
-        this.soundPool.push(newSound);
-        return newSound;
+        // Use a round-robin approach for sounds
+        const sound = this.soundPool[this.currentSoundIndex];
+        this.currentSoundIndex = (this.currentSoundIndex + 1) % this.soundPool.length;
+        
+        // Reset to beginning of sound
+        sound.currentTime = 0;
+        return sound;
     }
 
     handleMouseMove(e) {
         if (!this.isActive) return;
         this.mousePosition.x = e.clientX;
         this.mousePosition.y = e.clientY;
-    }
-
-    initialize() {
     }
 
     startFiring(e) {
@@ -64,16 +70,15 @@ class AutomaticGunEffect extends BulletEffect {
                 return;
             }
             
-            const simulatedEvent = {
-                clientX: this.mousePosition.x,
-                clientY: this.mousePosition.y
-            };
+            // Update simulated event with current position
+            this.simulatedEvent.clientX = this.mousePosition.x;
+            this.simulatedEvent.clientY = this.mousePosition.y;
             
-            this.createBulletEffects(simulatedEvent);
+            this.createBulletEffects(this.simulatedEvent);
             
-            const spreadFactor = 15;
-            this.mousePosition.x += (Math.random() - 0.5) * spreadFactor;
-            this.mousePosition.y += (Math.random() - 0.5) * spreadFactor;
+            // Apply spread to next position
+            this.mousePosition.x += (Math.random() - 0.5) * this.spreadFactor;
+            this.mousePosition.y += (Math.random() - 0.5) * this.spreadFactor;
             
         }, this.fireRate);
     }
@@ -82,13 +87,16 @@ class AutomaticGunEffect extends BulletEffect {
         if (!this.isActive) return;
         
         const sound = this.getSound();
-        sound.currentTime = 0;
-        sound.play();
+        if (sound) sound.play();
         
         this.screenShake();
         this.createBulletHole(e.clientX, e.clientY);
         this.createSplash(e.clientX, e.clientY);
-        this.createCracks(e.clientX, e.clientY);
+        
+        // Only create cracks occasionally to improve performance
+        if (this.hitCount % 3 === 0) {
+            this.createCracks(e.clientX, e.clientY);
+        }
         
         this.hitCount++;
     }
@@ -97,6 +105,7 @@ class AutomaticGunEffect extends BulletEffect {
         if (!this.isFiring) return;
         
         clearInterval(this.fireInterval);
+        this.fireInterval = null;
         this.isFiring = false;
     }
 
@@ -126,6 +135,18 @@ class AutomaticGunEffect extends BulletEffect {
         this.editor.addEventListener('mousedown', this.boundMouseDownHandler);
         document.addEventListener('mouseup', this.boundMouseUpHandler);
         this.editor.addEventListener('mouseleave', this.boundMouseLeaveHandler);
+    }
+    
+    cleanup() {
+        this.disable();
+        
+        // Clean up sound pool
+        this.soundPool.forEach(sound => {
+            if (sound && sound.parentNode) {
+                sound.parentNode.removeChild(sound);
+            }
+        });
+        this.soundPool = [];
     }
 }
 

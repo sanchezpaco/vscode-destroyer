@@ -8,17 +8,52 @@ class BulletEffect extends EffectBase {
         this.explosionSound = document.getElementById('explosion');
         
         this.isActive = false;
+        this.hitCount = 0;
+        this.bulletHolePool = [];
+        this.splashPool = [];
+        this.crackPool = [];
+        this.audioPool = [];
+        
+        this.bulletHoleTypes = ['bullet-hole-type1', 'bullet-hole-type2', 'bullet-hole-type3'];
+        this.splashTypes = ['splash-red', 'splash-dark'];
+        
+        this._boundHandleClick = this.handleClick.bind(this);
     }
 
     enable() {
         this.isActive = true;
+        document.addEventListener('click', this._boundHandleClick);
     }
     
     disable() {
         this.isActive = false;
+        document.removeEventListener('click', this._boundHandleClick);
     }
 
     initialize() {
+        this.preparePool('bulletHolePool', 20, 'div', 'bullet-hole');
+        this.preparePool('splashPool', 50, 'div', 'splash');
+        this.preparePool('crackPool', 20, 'div', 'crack-line');
+        this.prepareAudioPool(5);
+    }
+    
+    preparePool(poolName, count, elementType, className) {
+        for (let i = 0; i < count; i++) {
+            const element = document.createElement(elementType);
+            if (className) element.className = className;
+            element.style.display = 'none';
+            this[poolName].push(element);
+            this.editor.appendChild(element);
+        }
+    }
+    
+    prepareAudioPool(count) {
+        for (let i = 0; i < count; i++) {
+            const audio = new Audio();
+            audio.style.display = 'none';
+            this.audioPool.push(audio);
+            document.body.appendChild(audio);
+        }
     }
 
     playGunshotSound() {
@@ -43,13 +78,12 @@ class BulletEffect extends EffectBase {
     }
 
     createBulletHole(x, y) {
-        const hole = document.createElement('div');
+        const hole = this.bulletHolePool.pop() || document.createElement('div');
         hole.className = 'bullet-hole';
         
         const size = Math.random() * 15 + 10; 
         
-        const types = ['bullet-hole-type1', 'bullet-hole-type2', 'bullet-hole-type3'];
-        const selectedType = types[Math.floor(Math.random() * types.length)];
+        const selectedType = this.bulletHoleTypes[Math.floor(Math.random() * this.bulletHoleTypes.length)];
         hole.classList.add(selectedType);
         
         hole.style.left = x + 'px';
@@ -60,17 +94,16 @@ class BulletEffect extends EffectBase {
         
         hole.style.transform += ` rotate(${Math.random() * 360}deg)`;
         
+        hole.style.display = 'block';
         this.editor.appendChild(hole);
     }
 
     createSplash(x, y) {
-        const splashTypes = ['splash-red', 'splash-dark'];
-        
         for (let i = 0; i < 5; i++) {
-            const splash = document.createElement('div');
+            const splash = this.splashPool.pop() || document.createElement('div');
             splash.className = 'splash';
             
-            splash.classList.add(splashTypes[Math.floor(Math.random() * splashTypes.length)]);
+            splash.classList.add(this.splashTypes[Math.floor(Math.random() * this.splashTypes.length)]);
             
             const distance = Math.random() * 30;
             const angle = Math.random() * Math.PI * 2;
@@ -84,10 +117,12 @@ class BulletEffect extends EffectBase {
             splash.style.width = size + 'px';
             splash.style.height = size * (0.8 + Math.random() * 0.4) + 'px';
             
+            splash.style.display = 'block';
             this.editor.appendChild(splash);
             
             setTimeout(() => {
-                splash.remove();
+                splash.style.display = 'none';
+                this.splashPool.push(splash);
             }, 1000);
         }
     }
@@ -131,7 +166,7 @@ class BulletEffect extends EffectBase {
     }
 
     createCrackLine(container, x, y, angle, length) {
-        const crack = document.createElement('div');
+        const crack = this.crackPool.pop() || document.createElement('div');
         crack.className = 'crack-line';
         
         crack.style.left = x + 'px';
@@ -142,6 +177,7 @@ class BulletEffect extends EffectBase {
         crack.style.height = `${Math.random() * 2 + 1}px`;
         crack.style.opacity = Math.random() * 0.3 + 0.2;
         
+        crack.style.display = 'block';
         container.appendChild(crack);
         
         if (length > 20 && Math.random() > 0.7) {
