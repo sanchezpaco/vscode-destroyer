@@ -9,6 +9,14 @@
     </style>
 </head>
 <body>
+    <!-- Loading overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div id="loading-message">Loading weapons...</div>
+        </div>
+    </div>
+
     <!-- Audio elements for sound effects -->
     <audio id="gunshot1" src="${srcPath}/sounds/gunshot.mp3" preload="auto"></audio>
     <audio id="hammer-hit" src="${srcPath}/sounds/hammer.wav" preload="auto"></audio>
@@ -70,5 +78,6 @@
     </div>
 
     <script type="module" src="${srcPath}/effects/effects-controller.js"></script>
+    <script type="module" src="${srcPath}/loading-handler.js"></script>
 </body>
 </html>

@@ -3,30 +3,35 @@
 ## _"Because sometimes, code just needs to be DESTROYED!"_
 
 <p align="center">
-  <img src="src/images/banner.webp" alt="VS Code Destroyer Banner" width="500" />
+  <img src="src/images/banner.webp" alt="VS Code Destroyer Banner" width="300" />
 </p>
 
 Are you tired of staring at that frustrating code that just won't work? Do you wish there was a more satisfying way to express your programming rage than just hitting backspace? **LOOK NO FURTHER!**
 
 ## 🔥 Introducing VS Code Destroyer™! 🔥
 
-**BUT WAIT, THERE'S MORE!** With our patent-pending destruction technology, you can now:
+  <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnFzcnQ0NjZjaWhmbGx6aWxoOTd5dG5uOHFzdXJnaHQyaTlkMjhxeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/SyIRZhTv8hTOfCsFxZ/giphy.gif" alt="VS Code Destroyer Demo" width="400" />
 
-- 🔫 SHOOT your broken functions with realistic bullet holes!
-- 🔫 SPRAY your messy classes with automatic gunfire!
-- 🔨 SMASH those terrible algorithms with a virtual hammer!
-- 🔥 INCINERATE your spaghetti code with a flamethrower!
+## Usage
 
-## How It Works
+1. **Launch the Destroyer**: 
+   - Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux) to open the command palette
+   - Type `Destroy Editor!` and select it
 
-Simply load up this extension, select your weapon of choice, and click on the editor to unleash your fury! Each weapon offers a unique destruction experience:
+2. **Select Your Weapon**:
+   - Click on one of the weapon icons in the toolbar that appears
+   - Or use numbers to quickly switch between weapons:
+     - `1`: Bullet Mode
+     - `2`: Auto Gun Mode
+     - `3`: Hammer Mode
+     - `4`: Flamethrower Mode
+     - `5`: Bomb mode 
 
-1. **Bullet Mode**: One satisfying shot at a time
-2. **Auto Gun Mode**: Rapid-fire destruction for those particularly annoying segments
-3. **Hammer Mode**: Smash your code into fragments that pile up realistically
-4. **Flamethrower Mode**: Watch your code burn away in glorious flames
+3. **Unleash Destruction**:
+   - Click anywhere in your code to apply the selected destruction effect
+   - Hold and drag for continuous destruction with certain weapons
 
-## Installation
+## Installation & Development
 
 ```bash
 # Clone this repository
@@ -44,36 +49,11 @@ Press F5 and select VsCode Extension Development
 This will open a new window where you can test it by running cmd/control + shift + P and select Destroy Editor!
 ```
 
-## Usage
-
-1. **Launch the Destroyer**: 
-   - Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux) to open the command palette
-   - Type `Destroy Editor!` and select it
-
-2. **Select Your Weapon**:
-   - Click on one of the weapon icons in the toolbar that appears
-   - Or use number keys 1-4 to quickly switch between weapons:
-     - `1`: Bullet Mode
-     - `2`: Auto Gun Mode
-     - `3`: Hammer Mode
-     - `4`: Flamethrower Mode
-     - `5`: Bomb mode 
-
-3. **Unleash Destruction**:
-   - Click anywhere in your code to apply the selected destruction effect
-   - Hold and drag for continuous destruction with certain weapons
-
-5. **Save Your Masterpiece**:
-   - Use the "Save Destruction" button to capture a screenshot of your destroyed code
-   - Share with colleagues for maximum satisfaction!
-
-## Adding Your Own Destruction Effects
-
-### "BUT HOW CAN I CREATE MY OWN DESTRUCTION METHODS?" We hear you ask!
+### Adding Your Own Destruction Effects
 
 Adding your own mayhem is as easy as 1-2-3! Just follow these simple steps:
 
-### 1. Create your effect JavaScript file
+#### 1. Create your effect JavaScript file
 
 Create a new file in the `/src/effects/` directory (e.g., `chainsaw-effect.js`):
 
@@ -134,7 +114,7 @@ class ChainsawEffect extends EffectBase {
 export { ChainsawEffect };
 ```
 
-### 2. Add CSS styles for your effect
+#### 2. Add CSS styles for your effect
 
 Add styles to `/src/styles/styles.css`:
 
@@ -168,7 +148,7 @@ Add styles to `/src/styles/styles.css`:
 }
 ```
 
-### 3. Add audio elements to `/view.html`
+#### 3. Add audio elements to `/view.html`
 
 ```html
 <!-- Add your sound effects -->
@@ -176,7 +156,7 @@ Add styles to `/src/styles/styles.css`:
 <audio id="wood-cutting-sound" src="src/sounds/wood-cutting.mp3" preload="auto"></audio>
 ```
 
-### 4. Register your effect in `/src/effects/effects-controller.js`
+#### 4. Register your effect in `/src/effects/effects-controller.js`
 
 ```javascript
 import { ChainsawEffect } from "./chainsaw-effect.js";
@@ -202,17 +182,11 @@ export function initializeEffects() {
 }
 ```
 
-### 5. Update HTML to include your new weapon button
+#### 5. Update HTML to include your new weapon button
 
 ```html
 <div class="weapon-button" id="chainsaw-control" title="Chainsaw (5)">🪚</div>
 ```
-
-## 📞 ACT NOW! 📞
-
-Don't delay! Download VS Code Destroyer™ today and experience the most satisfying digital destruction you'll ever feel!
-
-_But seriously, this is just for fun. Please don't actually use this for productive work._
 
 ## License
 

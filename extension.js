@@ -25,23 +25,38 @@ function showDestructionEffect(context) {
     if (editor) {
         const text = editor.document.getText();
         
-        const panel = vscode.window.createWebviewPanel(
-            'destructionView',
-            'Editor Destruction',
-            {
-                viewColumn: vscode.ViewColumn.One,
-                preserveFocus: false
-            },
-            { 
-                enableScripts: true,
-                retainContextWhenHidden: true,
-                localResourceRoots: [
-                    vscode.Uri.file(path.join(context.extensionPath, 'src'))
-                ]
-            }
-        );
+        vscode.window.withProgress({
+            location: vscode.ProgressLocation.Notification,
+            title: "Loading destruction tools...",
+            cancellable: false
+        }, async (progress) => {
+            progress.report({ increment: 0 });
+            
+            const panel = vscode.window.createWebviewPanel(
+                'destructionView',
+                'Editor Destruction',
+                {
+                    viewColumn: vscode.ViewColumn.One,
+                    preserveFocus: false
+                },
+                { 
+                    enableScripts: true,
+                    retainContextWhenHidden: true,
+                    localResourceRoots: [
+                        vscode.Uri.file(path.join(context.extensionPath, 'src'))
+                    ]
+                }
+            );
 
-        panel.webview.html = getWebviewContent(panel.webview, context.extensionPath, text);
+            panel.webview.html = getWebviewContent(panel.webview, context.extensionPath, text);
+            
+            for (let i = 0; i < 10; i++) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                progress.report({ increment: 10 });
+            }
+            
+            return new Promise(resolve => setTimeout(resolve, 500));
+        });
     }
 }
 
