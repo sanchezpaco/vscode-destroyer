@@ -3,7 +3,7 @@
   "displayName": "VS Code Destroyer",
   "description": "Blow off steam by destroying your editor with bullets, hammers, and flamethrowers. A fun break during frustrating coding sessions!",
   "publisher": "sanchezpaco",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,8 +26,7 @@
       }
     ]
   },
-  "scripts": {
-  },
+  "scripts": {},
   "devDependencies": {
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.1",
