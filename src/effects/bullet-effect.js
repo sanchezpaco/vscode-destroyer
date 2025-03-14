@@ -61,13 +61,7 @@ class BulletEffect extends EffectBase {
         const randomIndex = Math.floor(Math.random() * sounds.length);
         const selectedSound = sounds[randomIndex];
         
-        const soundClone = selectedSound.cloneNode(true);
-        soundClone.volume = selectedSound.volume;
-        soundClone.play();
-        
-        soundClone.onended = () => {
-            soundClone.remove();
-        };
+        return this.playSound(selectedSound);
     }
 
     screenShake() {

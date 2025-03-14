@@ -9,15 +9,23 @@ class EffectBase {
 
     playSound(soundElement) {
         // Check for muted state before playing sound
-        if (this.isMuted || window.isSoundMuted) {
+        if (window.isSoundMuted) {
             console.log("Sound is muted, skipping audio playback");
-            return;
+            return null;
         }
         
         if (soundElement) {
-            soundElement.volume = 0.3;
-            soundElement.play()            
+            const soundClone = soundElement.cloneNode(true);
+            soundClone.volume = soundElement.volume || 0.3;
+            soundClone.play();
+            
+            soundClone.onended = () => {
+                soundClone.remove();
+            };
+            
+            return soundClone;
         }
+        return null;
     }
 
     initialize() {

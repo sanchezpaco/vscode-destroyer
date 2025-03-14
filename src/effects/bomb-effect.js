@@ -29,23 +29,11 @@ class BombEffect extends EffectBase {
     }
 
     playBombPlantedSound() {
-        const soundClone = this.bombPlantedSound.cloneNode(true);
-        soundClone.volume = this.bombPlantedSound.volume;
-        soundClone.play();
-        
-        soundClone.onended = () => {
-            soundClone.remove();
-        };
+        return this.playSound(this.bombPlantedSound);
     }
 
     playExplosionSound() {
-        const soundClone = this.explosionSound.cloneNode(true);
-        soundClone.volume = this.explosionSound.volume;
-        soundClone.play();
-        
-        soundClone.onended = () => {
-            soundClone.remove();
-        };
+        return this.playSound(this.explosionSound);
     }
 
     handleClick(e) {

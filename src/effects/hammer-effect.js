@@ -301,13 +301,7 @@ class HammerEffect extends EffectBase {
     }
 
     playHammerSound() {
-        const soundClone = this.hammerHit.cloneNode(true);
-        soundClone.volume = this.hammerHit.volume;
-        soundClone.play();
-        
-        soundClone.onended = () => {
-            soundClone.remove();
-        };
+        return this.playSound(this.hammerHit);
     }
 
     handleClick(e) {

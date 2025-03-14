@@ -39,7 +39,7 @@ class AutomaticGunEffect extends BulletEffect {
     }
     
     getSound() {
-        if (this.soundPool.length === 0) return null;
+        if (this.soundPool.length === 0 || window.isSoundMuted) return null;
         
         const sound = this.soundPool[this.currentSoundIndex];
         this.currentSoundIndex = (this.currentSoundIndex + 1) % this.soundPool.length;
@@ -82,7 +82,7 @@ class AutomaticGunEffect extends BulletEffect {
         if (!this.isActive) return;
         
         const sound = this.getSound();
-        if (sound) sound.play();
+        if (sound && !window.isSoundMuted) sound.play();
         
         this.screenShake();
         this.createBulletHole(e.clientX, e.clientY);
